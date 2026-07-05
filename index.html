@@ -3,39 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>ASNF Techno Lab | ShinkoUI 32</title>
+    <title>ASNF Techno Lab | ShinkoUI 33</title>
     <style>
         /* ==========================================
-           NABIL FORGE - SHINKOUI 32 BIG MAJOR UPDATE
+           NABIL FORGE - SHINKOUI 33 APEX UPDATE
            Company: ASNF Techno Lab
-           Engine: Shinko Engine 15 (Next Gen GPU Accel & Lerp Parallax)
+           Engine: Shinko Engine 16 (Top Dock Geometry)
            Architect: M. Nabil Irza Prawira
            AI Co-Pilot: Gemini
            ========================================== */
         
         :root {
-            /* SHINKO LIQUID CRYSTAL ENGINE 5.0 */
+            /* SHINKO LIQUID CRYSTAL ENGINE 6.0 */
             --glass-blur-value: 160px;
             --glass-blur: blur(var(--glass-blur-value)) saturate(350%);
             --crystal-bg: rgba(255, 255, 255, 0.03);
             --crystal-border: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.02) 100%);
-            --crystal-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(255, 255, 255, 0.05);
+            --crystal-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.05);
             
             --ios-radius: 32px; 
             --btn-radius: 40px; 
             
-            /* Upgraded Physics-Based Animations */
+            /* Advanced Physics */
             --spring-physics: cubic-bezier(0.4, 1.2, 0.4, 1);
             --smooth-flow: cubic-bezier(0.25, 1, 0.5, 1);
             --transition: all 0.5s var(--smooth-flow);
             
-            /* Theming (Aurora Dark) */
+            /* Core Palette */
             --bg-base: #030303;
             --text-main: #ffffff;
             --text-sub: rgba(235, 235, 245, 0.65);
             --accent: #0a84ff;
             --accent-glow: rgba(10, 132, 255, 0.5);
-            
+            --asnf-purple: #bf5af2;
+            --success: #32d74b;
+
             /* Elements & Visions */
             --cryo-color: #5ac8fa;
             --pyro-color: #ff453a;
@@ -58,11 +60,11 @@
         }
         body::-webkit-scrollbar { display: none; } 
 
-        /* DYNAMIC LERP MESH PARALLAX */
+        /* DYNAMIC LERP MESH PARALLAX (GPU ACCELERATED) */
         .mesh-bg {
             position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; z-index: -1;
             background-image: 
-                radial-gradient(at 20% 20%, rgba(10, 132, 255, 0.15) 0px, transparent 40%),
+                radial-gradient(at 10% 20%, rgba(10, 132, 255, 0.15) 0px, transparent 40%),
                 radial-gradient(at 80% 30%, rgba(191, 90, 242, 0.15) 0px, transparent 40%),
                 radial-gradient(at 90% 80%, rgba(255, 55, 95, 0.1) 0px, transparent 40%),
                 radial-gradient(at 20% 90%, rgba(255, 214, 10, 0.1) 0px, transparent 40%);
@@ -71,23 +73,7 @@
         }
         @keyframes meshFlow { 0% { background-position: 0% 0%; } 50% { background-position: 100% 100%; } 100% { background-position: 0% 0%; } }
 
-        /* ================= UPGRADED DYNAMIC ISLAND ================= */
-        #dynamic-island {
-            position: fixed; top: env(safe-area-inset-top, 20px); left: 50%; transform: translateX(-50%) translate3d(0,0,0);
-            background: rgba(0,0,0,0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-radius: 40px; width: 130px; height: 35px; z-index: 10000;
-            display: flex; align-items: center; justify-content: center;
-            color: #fff; font-size: 13px; font-weight: 700; letter-spacing: 0.5px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.15);
-            transition: width 0.6s var(--spring-physics), height 0.6s var(--spring-physics), background 0.6s var(--smooth-flow);
-            overflow: hidden; pointer-events: none; will-change: width, height, transform;
-        }
-        #dynamic-island.notify-active { width: 340px; height: 55px; background: rgba(15,15,15,0.95); box-shadow: 0 20px 50px rgba(0,0,0,0.8), inset 0 0 20px rgba(255,255,255,0.05);}
-        .island-content { opacity: 0; transition: opacity 0.3s; white-space: nowrap; display: flex; align-items: center; gap: 10px;}
-        .island-icon { font-size: 18px; animation: popIcon 0.6s var(--spring-physics) forwards;}
-        @keyframes popIcon { 0% {transform: scale(0.3) rotate(-20deg);} 100% {transform: scale(1) rotate(0deg);} }
-
-        /* ================= UPGRADED LOADING SCREEN ================= */
+        /* LOADING SCREEN */
         #loading-screen {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: #000; z-index: 9999;
@@ -105,34 +91,128 @@
             animation: spinRing 3s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite reverse;
         }
         @keyframes spinRing { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
+
         .load-core {
-            font-size: 42px; font-weight: 900; letter-spacing: -2px; color: #fff;
-            background: linear-gradient(135deg, #fff, var(--text-sub)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-size: 50px; font-weight: 900; letter-spacing: -2px; color: #fff;
+            background: linear-gradient(135deg, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             z-index: 2; opacity: 0; transform: scale(0.5); animation: corePop 1s var(--spring-physics) 0.3s forwards;
         }
-        .load-text { font-size: 14px; font-weight: 800; color: var(--accent); letter-spacing: 6px; text-transform: uppercase; margin-top: 40px; opacity: 0; animation: fadeUp 1s var(--smooth-flow) 0.8s forwards;}
+        .load-text { font-size: 14px; font-weight: 800; color: var(--text-sub); letter-spacing: 5px; text-transform: uppercase; margin-top: 40px; opacity: 0; animation: fadeUp 1s var(--smooth-flow) 0.8s forwards;}
         @keyframes corePop { to { opacity: 1; transform: scale(1); } }
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-        /* ================= SHINKO UI 32 LAYOUT ================= */
-        .app-layout { max-width: 1150px; margin: 0 auto; padding: clamp(20px, 5vw, 50px); padding-bottom: 140px; box-sizing: border-box; }
+        /* ================= UPGRADED DYNAMIC ISLAND ================= */
+        #dynamic-island {
+            position: fixed; top: env(safe-area-inset-top, 80px); left: 50%; transform: translateX(-50%) translate3d(0,0,0);
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-radius: 40px; width: 130px; height: 35px; z-index: 10000;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 13px; font-weight: 700; letter-spacing: 0.5px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.15);
+            transition: width 0.6s var(--spring-physics), height 0.6s var(--spring-physics), background 0.6s var(--smooth-flow);
+            overflow: hidden; pointer-events: none; will-change: width, height, transform;
+        }
+        #dynamic-island.notify-active { width: 340px; height: 55px; background: rgba(15,15,15,0.95); box-shadow: 0 20px 50px rgba(0,0,0,0.8), inset 0 0 20px rgba(255,255,255,0.05);}
+        .island-content { opacity: 0; transition: opacity 0.3s; white-space: nowrap; display: flex; align-items: center; gap: 10px;}
+        .island-icon { font-size: 18px; animation: popIcon 0.6s var(--spring-physics) forwards;}
+        @keyframes popIcon { 0% {transform: scale(0.3) rotate(-20deg);} 100% {transform: scale(1) rotate(0deg);} }
+
+
+        /* ================= ASNF DOCK (PERFECT GEOMETRY) ================= */
+        .top-dock-container {
+            position: fixed; top: 0; left: 50%; transform: translateX(-50%) translateZ(0);
+            width: 100%; max-width: 1200px; z-index: 1000;
+            display: flex; justify-content: center; padding-top: 15px;
+            pointer-events: none; 
+        }
         
-        /* TAB SYSTEM */
-        .tab-section { display: none; opacity: 0; transform: scale(0.96) translateY(30px) translate3d(0,0,0); transition: var(--transition); will-change: opacity, transform, filter; }
+        .asnf-dock-wrapper {
+            display: flex; width: 92%; max-width: 620px;
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.6));
+            pointer-events: auto; 
+            will-change: transform;
+        }
+
+        .dock-segment {
+            background: rgba(10, 10, 10, 0.65);
+            backdrop-filter: blur(30px) saturate(200%); -webkit-backdrop-filter: blur(30px) saturate(200%);
+            display: flex; justify-content: center; align-items: center;
+            height: 65px; transition: var(--transition);
+            border-top: 1px solid rgba(255,255,255,0.15);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            box-shadow: inset 0 0 10px rgba(255,255,255,0.02);
+        }
+        .dock-segment:hover { background: rgba(20, 20, 20, 0.75); }
+
+        .dock-left {
+            width: 90px; 
+            clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 100%, 0 100%);
+            border-top-left-radius: 30px; border-bottom-left-radius: 30px;
+            margin-right: -15px; padding-right: 10px; z-index: 2;
+        }
+        .dock-center {
+            flex-grow: 1; 
+            clip-path: polygon(0 0, 100% 0, calc(100% - 20px) 100%, 20px 100%);
+            z-index: 1;
+        }
+        .dock-right {
+            width: 90px; 
+            clip-path: polygon(20px 0, 100% 0, 100% 100%, 0 100%);
+            border-top-right-radius: 30px; border-bottom-right-radius: 30px;
+            margin-left: -15px; padding-left: 10px; cursor: pointer; z-index: 2;
+        }
+
+        .asnf-logo {
+            width: 38px; height: 38px; border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent), var(--asnf-purple));
+            display: flex; justify-content: center; align-items: center;
+            font-weight: 900; font-size: 14px; color: #fff; letter-spacing: -1px;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+        
+        .dock-center-title { 
+            font-size: 16px; font-weight: 800; color: #fff; 
+            letter-spacing: 1px; text-transform: uppercase;
+            text-shadow: 0 2px 10px rgba(255,255,255,0.2);
+            transition: var(--transition);
+        }
+
+        .hamburger-menu { width: 30px; height: 20px; display: flex; flex-direction: column; justify-content: space-between; }
+        .hamburger-line { width: 100%; height: 3px; background: #fff; border-radius: 5px; transition: var(--transition); }
+        
+        /* Mobile Overlay Menu */
+        .mobile-menu-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 30px;
+            opacity: 0; visibility: hidden; transition: var(--transition);
+        }
+        .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+        .menu-link { font-size: 28px; font-weight: 800; color: var(--text-sub); text-decoration: none; transition: var(--transition); cursor: pointer;}
+        .menu-link:hover, .menu-link.active { color: #fff; transform: scale(1.1); }
+
+
+        /* ================= LAYOUT & TABS ================= */
+        .app-layout { 
+            max-width: 1150px; margin: 0 auto; 
+            padding: clamp(20px, 5vw, 40px); padding-top: 130px; padding-bottom: 80px; 
+            box-sizing: border-box; 
+        }
+
+        .tab-section { display: none; opacity: 0; transform: scale(0.96) translateY(30px) translate3d(0,0,0); transition: var(--transition); will-change: opacity, transform; }
         .tab-section.active { display: block; opacity: 1; transform: scale(1) translateY(0) translate3d(0,0,0); animation: smoothEntry 0.8s var(--spring-physics) forwards; }
         @keyframes smoothEntry { 0% { opacity: 0; transform: translateY(40px) scale(0.95); filter: blur(15px); } 100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } }
 
         /* HEADERS */
-        .hero-header { text-align: center; margin-bottom: 60px; margin-top: 30px; }
+        .hero-header { text-align: center; margin-bottom: 50px; }
         .hero-title { font-size: clamp(40px, 7vw, 70px); font-weight: 900; letter-spacing: -2.5px; margin: 0; background: linear-gradient(to right, #fff, rgba(255,255,255,0.6)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .hero-title.mask {
             background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0idXJsKCNncmFkKSIvPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2JmNWFmMiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzBhODRmZiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjwvc3ZnPg==') 0 0/ 200% 200%;
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradientShift 6s ease infinite;
         }
-        .hero-subtitle { font-size: clamp(15px, 2vw, 19px); color: var(--text-sub); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-top: 15px; }
+        .hero-subtitle { font-size: clamp(15px, 2vw, 19px); color: var(--accent); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-top: 15px; }
 
-        /* CRYSTAL CARDS */
+        /* CRYSTAL CARDS (GRID) */
         .shinko-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(clamp(280px, 28vw, 360px), 1fr)); gap: 30px; } 
         .glass-card {
             background: var(--crystal-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
@@ -174,53 +254,13 @@
         .btn-primary { background: var(--accent); color: #fff; border: none; box-shadow: 0 10px 30px var(--accent-glow); }
         .btn-primary:hover { background: #fff; color: var(--accent); box-shadow: 0 15px 40px var(--accent-glow);}
 
-        /* DOCK NAV DYNAMIC (5 Menus Before / 5 Menus After) */
-        .shinko-dock {
-            position: fixed; bottom: clamp(20px, 4vw, 35px); left: 50%; transform: translateX(-50%) translate3d(0,0,0);
-            background: rgba(10, 10, 10, 0.6); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
-            border-radius: 50px; display: flex; gap: 6px; padding: 12px 25px; 
-            box-shadow: 0 30px 60px rgba(0,0,0,0.8), inset 0 1px 1px rgba(255,255,255,0.15);
-            z-index: 900; transition: width 0.6s var(--spring-physics); will-change: transform, width, padding;
-        }
-        .shinko-dock::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 50px; padding: 1px; background: var(--crystal-border);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
-        }
+        /* CARD TYPOGRAPHY */
+        .card-title { font-size: 24px; font-weight: 900; margin: 0 0 15px; letter-spacing: -0.5px; }
+        .card-desc { font-size: 16px; line-height: 1.7; color: var(--text-sub); flex-grow: 1; margin-bottom: 30px; font-weight: 400;}
+        .text-gradient { background: linear-gradient(135deg, var(--pyro-color), var(--gold-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .text-cryo { background: linear-gradient(135deg, #fff, var(--snezhnaya-ice)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        .dock-item {
-            width: clamp(55px, 12vw, 65px); height: clamp(55px, 12vw, 65px); border-radius: 22px; 
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            color: var(--text-sub); cursor: pointer; position: relative;
-            transition: transform 0.6s var(--spring-physics), background 0.3s, box-shadow 0.4s; will-change: transform;
-        }
-        .dock-item:hover { background: rgba(255,255,255,0.06); color: #fff; }
-        .dock-item.active { background: rgba(255,255,255,0.15); color: #fff; transform: scale(1.15) translate3d(0, -15px, 0); box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.1); }
-        .dock-icon { font-size: clamp(22px, 5vw, 26px); margin-bottom: 2px; transition: var(--transition); will-change: transform; }
-        .dock-item.active .dock-icon { transform: scale(1.1) translate3d(0,0,0); filter: drop-shadow(0 0 15px rgba(255,255,255,0.5));}
-        .dock-text { font-size: 10px; font-weight: 800; opacity: 0; transform: translateY(15px) translate3d(0,0,0); transition: var(--transition); position: absolute; bottom: -22px; color: #fff; text-transform: uppercase; letter-spacing: 0.5px;}
-        .dock-item.active .dock-text { opacity: 1; transform: translateY(0) translate3d(0,0,0); }
-
-        #dock-gateway { display: flex; }
-        #dock-beta { display: none; }
-        body.is-unlocked #dock-gateway { display: none; }
-        body.is-unlocked #dock-beta { display: flex; animation: dockPop 0.6s var(--spring-physics); }
-        @keyframes dockPop { 0% {transform: scale(0);} 100% {transform: scale(1);} }
-
-        /* GATEWAY UI */
-        .gateway-container { text-align: center; max-width: 700px; margin: 0 auto; }
-        .gateway-guide { background: rgba(0,0,0,0.4); border-radius: 24px; padding: 35px; border: 1px solid rgba(255,255,255,0.05); text-align: left; margin-bottom: 40px; }
-        .gateway-guide h3 { font-size: 22px; margin-top: 0; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px;}
-        .gateway-guide p, .gateway-guide ol { color: var(--text-sub); font-size: 16px; line-height: 1.8; }
-        .gateway-guide a { color: var(--gold-color); text-decoration: none; font-weight: bold; }
-        
-        .gateway-input-box { position: relative; width: 100%; max-width: 450px; margin: 0 auto; }
-        .gateway-input {
-            width: 100%; padding: 22px 30px; border-radius: 40px; background: rgba(0,0,0,0.6); border: 2px solid rgba(255,255,255,0.1);
-            color: #fff; font-size: 18px; font-weight: 800; text-align: center; letter-spacing: 4px; box-sizing: border-box; outline: none; transition: var(--transition);
-        }
-        .gateway-input:focus { border-color: var(--gold-color); box-shadow: 0 0 30px rgba(255,214,10,0.2); }
-        
-        /* PROFILES & OTHERS */
+        /* PROFILES & SYSTEM PANELS */
         .dev-profile { text-align: center; max-width: 800px; margin: 0 auto; }
         .avatar-wrap { position: relative; width: 180px; height: 180px; margin: 0 auto 30px; }
         .avatar-img { width: 100%; height: 100%; border-radius: 60px; object-fit: cover; box-shadow: 0 20px 60px rgba(0,0,0,0.6); position: relative; z-index: 2; border: 2px solid rgba(255,255,255,0.1);}
@@ -228,10 +268,20 @@
         @keyframes breathingHalo { 0% {transform: scale(1); opacity: 0.5;} 100% {transform: scale(1.1); opacity: 0.8;} }
         .blue-tick { width: 28px; height: 28px; fill: var(--accent); filter: drop-shadow(0 0 8px rgba(10,132,255,0.5)); vertical-align: middle;}
 
-        .card-title { font-size: 24px; font-weight: 900; margin: 0 0 15px; letter-spacing: -0.5px; }
-        .card-desc { font-size: 16px; line-height: 1.7; color: var(--text-sub); flex-grow: 1; margin-bottom: 30px; font-weight: 400;}
-        .text-gradient { background: linear-gradient(135deg, var(--pyro-color), var(--gold-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .text-cryo { background: linear-gradient(135deg, #fff, var(--snezhnaya-ice)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .ios-list { background: rgba(0,0,0,0.3); border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 25px;}
+        .ios-item { display: flex; justify-content: space-between; align-items: center; padding: 20px 25px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .ios-item:last-child { border-bottom: none; }
+        .ios-label { font-size: 16px; font-weight: 600; color: #fff; }
+        .ios-value { font-size: 16px; color: var(--text-sub); display: flex; align-items: center; gap: 8px;}
+        .status-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--success); box-shadow: 0 0 10px var(--success); animation: pulseDot 2s infinite;}
+        
+        .live-check-panel { background: rgba(10, 132, 255, 0.1); border: 1px solid rgba(10, 132, 255, 0.3); border-radius: 24px; padding: 25px; text-align: center; margin-top: 30px;}
+        .live-url { font-family: monospace; font-size: 18px; color: var(--accent); font-weight: bold; margin: 15px 0; letter-spacing: -0.5px;}
+        .ping-bars { display: inline-flex; gap: 4px; align-items: flex-end; height: 20px; }
+        .bar { width: 5px; background: var(--success); border-radius: 3px; animation: pingBar 1s ease-in-out infinite alternate; }
+        .bar:nth-child(1) { height: 40%; animation-delay: 0.1s; } .bar:nth-child(2) { height: 70%; animation-delay: 0.2s; }
+        .bar:nth-child(3) { height: 100%; animation-delay: 0.3s; } .bar:nth-child(4) { height: 60%; animation-delay: 0.4s; }
+        @keyframes pingBar { 0%{transform: scaleY(0.5);} 100%{transform: scaleY(1);} }
     </style>
 </head>
 <body>
@@ -242,35 +292,42 @@
 
     <div id="loading-screen">
         <div class="load-ring"></div>
-        <div class="load-core">S32</div>
-        <div class="load-text">ASNF TECHNO LAB</div>
+        <div class="load-core">S33</div>
+        <div class="load-text">INITIALIZING SHINKOUI 33</div>
     </div>
 
-    <nav class="shinko-dock">
-        <div class="dock-item active" onclick="switchMenu('downloads', this)">
-            <div class="dock-icon">⬇️</div><div class="dock-text">Hub</div>
+    <!-- SE16 TOP DOCK -->
+    <div class="top-dock-container">
+        <div class="asnf-dock-wrapper">
+            <div class="dock-segment dock-left" onclick="switchMenu('downloads', 'ASNF Hub')" style="cursor: pointer;">
+                <div class="asnf-logo">S33</div>
+            </div>
+            
+            <div class="dock-segment dock-center">
+                <div class="dock-center-title" id="dockTitle">ASNF Hub</div>
+            </div>
+            
+            <div class="dock-segment dock-right" onclick="toggleMenu()">
+                <div class="hamburger-menu" id="hamburger">
+                    <div class="hamburger-line" id="hl1"></div>
+                    <div class="hamburger-line" id="hl2"></div>
+                    <div class="hamburger-line" id="hl3"></div>
+                </div>
+            </div>
         </div>
-        <div class="dock-item" onclick="switchMenu('descriptions', this)">
-            <div class="dock-icon">📖</div><div class="dock-text">Docs</div>
-        </div>
-        <div class="dock-item" onclick="switchMenu('developer', this)">
-            <div class="dock-icon">👨‍💻</div><div class="dock-text">Dev</div>
-        </div>
-        <div class="dock-item" onclick="switchMenu('about', this)">
-            <div class="dock-icon">⚙️</div><div class="dock-text">System</div>
-        </div>
-        
-        <div class="dock-item" id="dock-gateway" onclick="switchMenu('gateway', this)">
-            <div class="dock-icon">🔑</div><div class="dock-text">Gateway</div>
-        </div>
-        <div class="dock-item" id="dock-beta" onclick="switchMenu('beta', this)">
-            <div class="dock-icon" style="filter: drop-shadow(0 0 10px var(--snezhnaya-ice));">🧪</div>
-            <div class="dock-text" style="color: var(--snezhnaya-ice);">Beta Lab</div>
-        </div>
-    </nav>
+    </div>
+
+    <!-- SE16 MOBILE MENU OVERLAY -->
+    <div class="mobile-menu-overlay" id="menuOverlay">
+        <a class="menu-link active" onclick="switchMenu('downloads', 'ASNF Hub')">Downloads Hub</a>
+        <a class="menu-link" onclick="switchMenu('descriptions', 'Archives & Docs')">Archives & Docs</a>
+        <a class="menu-link" onclick="switchMenu('developer', 'ASNF Board')">Developer Profile</a>
+        <a class="menu-link" onclick="switchMenu('about', 'System Status')">System Status</a>
+    </div>
 
     <div class="app-layout">
         
+        <!-- HUB DOWNLOADS -->
         <div id="menu-downloads" class="tab-section active">
             <header class="hero-header">
                 <h1 class="hero-title mask">ASNF Forge Hub</h1>
@@ -278,7 +335,33 @@
             </header>
 
             <div class="shinko-grid">
-                <div class="glass-card" style="box-shadow: 0 15px 50px rgba(10, 132, 255, 0.15); border-color: rgba(10, 132, 255, 0.4);">
+                
+                <!-- NEW AIOG V7 -->
+                <div class="glass-card" style="box-shadow: 0 15px 50px rgba(255, 55, 95, 0.2); border-color: rgba(255, 55, 95, 0.5);">
+                    <div class="badge b-apex" style="animation: pulseGlow 1.5s infinite;">Apex Release</div>
+                    <h3 class="card-title text-gradient" style="background: linear-gradient(135deg, var(--apex-red), var(--gold-color)); -webkit-background-clip: text;">All In One Genshin AIOG V7</h3>
+                    <p class="card-desc">V7 Apex Update! Refined Omnipotent tweaks & NEW FEATURE: Dynamic Background Auto-Kill (Clears all background apps & RAM instantly when gaming). Extreme MTK/Mali lock, Interactive Engine Installer.</p>
+                    <a href="https://github.com/mnabilirzaprawira-ops/Module-File-Hare/releases/download/Module/AIOG-GI.7.zip" class="btn-glass btn-primary" style="background: var(--apex-red); color: #fff;" onclick="triggerDownload('AIOG V7')">DOWNLOAD V7 APEX</a>
+                </div>
+
+                <!-- MOVED MRP V20 -->
+                <div class="glass-card" style="border-color: rgba(143, 211, 254, 0.4); box-shadow: 0 15px 50px rgba(143, 211, 254, 0.15);">
+                    <div class="badge b-cryo">Official Release</div>
+                    <h3 class="card-title text-cryo">Magic Random Pro V20</h3>
+                    <p class="card-desc">The Ultimate Cryo Core. Snezhnaya Edition (OnePlus 12R Spoof). Powered by Permafrost Logic 13.0, Delusion Unleashed, Absolute Zero Rest, & Blizzard-Cleanse 80x Vacuum.</p>
+                    <a href="https://github.com/mnabilirzaprawira-ops/Module-File-Hare/releases/download/Module/Magic_Random-Pro-V20_Sneznaya.zip" class="btn-glass btn-primary" style="background: var(--snezhnaya-ice); color: #000;" onclick="triggerDownload('MRP V20 Snezhnaya')">DOWNLOAD V20 SNEZHNAYA</a>
+                </div>
+
+                <!-- MOVED V6 APEX -->
+                <div class="glass-card" style="border-color: rgba(255, 55, 95, 0.4); box-shadow: 0 15px 50px rgba(255, 55, 95, 0.15);">
+                    <div class="badge b-apex">Stable Release</div>
+                    <h3 class="card-title" style="color: var(--apex-red);">V6.0 Apex Edition</h3>
+                    <p class="card-desc">Official stable release of the Apex architecture. Extreme hardware tuning and bleeding-edge performance injection.</p>
+                    <a href="https://github.com/mnabilirzaprawira-ops/Module-File-Hare/releases/download/Module/V6.0.-.APEX.EDITION.zip" class="btn-glass btn-primary" style="background: var(--apex-red);" onclick="triggerDownload('V6.0 Apex Edition')">DOWNLOAD V6.0 APEX</a>
+                </div>
+
+                <!-- S32 EXISTING MODULES -->
+                <div class="glass-card">
                     <div class="badge b-blue" style="animation: pulseGlow 2s infinite;">Official V6.7</div>
                     <h3 class="card-title text-gradient" style="background: linear-gradient(135deg, var(--accent), var(--electro-color)); -webkit-background-clip: text;">All In One Genshin V6.7</h3>
                     <p class="card-desc">V6.7 Multi-Game Update! Interactive Vol-Key installer (Choose Vulkan/OpenGL). Ultimate God Mode for Genshin, WuWa, Free Fire, Blood Strike & CODM. Absolute Zero Throttling & BBR Injection.</p>
@@ -340,51 +423,10 @@
                     <p class="card-desc">Musou RAM Sync, CPU+GPU Eternity Overclock.</p>
                     <a href="https://github.com/mnabilirzaprawira-ops/Module-File-Hare/releases/download/Module/Magic_Random-Pro-V17.17.Raiden.EI.zip" class="btn-glass" onclick="triggerDownload('V17.17 Raiden')">DOWNLOAD V17.17</a>
                 </div>
-
-                <div class="glass-card">
-                    <div class="badge b-blue">V16 Cryo</div>
-                    <h3 class="card-title" style="color: var(--cryo-color);">Magic Random V16</h3>
-                    <p class="card-desc">Dynamic VFS Cache Pressure, FATUI Overclock.</p>
-                    <a href="https://github.com/mnabilirzaprawira-ops/Module-File-Hare/releases/download/Module/Magic_Random-Pro-V16.Columbia.Cryo.zip" class="btn-glass" onclick="triggerDownload('V16 Cryo')">DOWNLOAD V16</a>
-                </div>
-
-                <div class="glass-card">
-                    <div class="badge b-gold">V15.17 B-Day</div>
-                    <h3 class="card-title" style="color: var(--gold-color);">Magic Random V15.17</h3>
-                    <p class="card-desc">Released exclusively for Nabil's 17th Birthday.</p>
-                    <a href="https://github.com/mnabilirzaprawira-ops/Module-File-Hare/releases/download/Module/Magic_Random-Pro-V15.17.birthday.Editions.zip" class="btn-glass" onclick="triggerDownload('V15.17 Birthday')">DOWNLOAD V15.17</a>
-                </div>
-
-                <div class="glass-card">
-                    <div class="badge b-purple">V14 Aether</div>
-                    <h3 class="card-title">Magic Random V14</h3>
-                    <p class="card-desc">ART Compiler Turbo and full Hardware Acceleration.</p>
-                    <a href="https://github.com/mnabilirzaprawira-ops/Module-File-Hare/releases/download/Module/Magic_Random-Pro-V14.Aether.Core.zip" class="btn-glass" onclick="triggerDownload('V14 Aether')">DOWNLOAD V14</a>
-                </div>
-
-                <div class="glass-card">
-                    <div class="badge">V13 Quantum</div>
-                    <h3 class="card-title">Magic Random V13</h3>
-                    <p class="card-desc">TCP Westwood optimization and advanced ZRAM LZ4 tuning.</p>
-                    <a href="https://github.com/mnabilirzaprawira-ops/Module-File-Hare/releases/download/Module/Magic_Random-Pro-V13.Quantum.Velocity.zip" class="btn-glass" onclick="triggerDownload('V13 Quantum')">DOWNLOAD V13</a>
-                </div>
-                
-                <div class="glass-card">
-                    <div class="badge">V12 Titanium</div>
-                    <h3 class="card-title">Magic Random V12</h3>
-                    <p class="card-desc">Focused on aggressive Touch Responsiveness.</p>
-                    <a href="https://github.com/mnabilirzaprawira-ops/Module-File-Hare/releases/download/Module/Magic_Random-Pro-V12.Titanium.Core.zip" class="btn-glass" onclick="triggerDownload('V12 Titanium')">DOWNLOAD V12</a>
-                </div>
-
-                <div class="glass-card">
-                    <div class="badge">V11 Stable</div>
-                    <h3 class="card-title">Magic Random V11</h3>
-                    <p class="card-desc">Extremely lightweight, highly battery-friendly.</p>
-                    <a href="https://github.com/mnabilirzaprawira-ops/Module-File-Hare/releases/download/Module/Magic_Random-Pro-V11.Pro.Stable.zip" class="btn-glass" onclick="triggerDownload('V11 Stable')">DOWNLOAD V11</a>
-                </div>
             </div>
         </div>
 
+        <!-- DOCS & ARCHIVES -->
         <div id="menu-descriptions" class="tab-section">
             <header class="hero-header">
                 <h1 class="hero-title mask">Archives & Docs</h1>
@@ -393,6 +435,13 @@
 
             <div class="shinko-grid" style="grid-template-columns: 1fr;">
                 
+                <div class="glass-card" style="border-left: 6px solid var(--apex-red);">
+                    <h2 style="margin-top:0; color: var(--apex-red); font-weight: 900; font-size: 26px;">ALL IN ONE GENSHIN (AIOG) V7 APEX</h2>
+                    <p style="color: var(--text-sub); font-size: 16px; line-height: 1.8;">
+                        <strong>V7 Apex Update!</strong> Refined Omnipotent tweaks with a revolutionary NEW FEATURE: <strong>Dynamic Background Auto-Kill</strong>. This ensures all background apps & RAM are instantly cleared when gaming. Equipped with extreme MTK/Mali lock and an interactive engine installer.
+                    </p>
+                </div>
+
                 <div class="glass-card" style="border-left: 6px solid var(--accent);">
                     <h2 style="margin-top:0; color: var(--accent); font-weight: 900; font-size: 26px;">ALL IN ONE GENSHIN (AIOG) V6.7</h2>
                     <p style="color: var(--text-sub); font-size: 16px; line-height: 1.8;">
@@ -416,36 +465,17 @@
                 </div>
 
                 <div class="glass-card">
-                    <h3 style="margin-top:0;">V5.0 Imposter Edition</h3>
-                    <p class="card-desc">Dynamic AI Engine + Device Spoofing (Pixel 8 Pro / iPhone 12). Visual Overclocking & GPU Masking.</p>
-                </div>
-                <div class="glass-card">
                     <h3 style="margin-top:0;">V6.0 Apex Edition</h3>
-                    <p class="card-desc">Trial release of the Next Gen Apex architecture.</p>
+                    <p class="card-desc">Official release of the Next Gen Apex architecture. Bleeding-edge hardware optimizations.</p>
                 </div>
                 <div class="glass-card">
                     <h3 style="margin-top:0;">Magic Random Pro V19 Natlan</h3>
                     <p class="card-desc">The Ultimate Pyro Core. Natlan Edition. Powered by Ignition Logic 12.0, Nightsoul Burst Overclock, Phlogiston Rest, & Vulcan-Cleanse Vacuum.</p>
                 </div>
-                <div class="glass-card">
-                    <h3 style="margin-top:0;">Nabil Forge Official App V3</h3>
-                    <p class="card-desc">Experience Native Musou Navigation, Live Hardware Scanner without Root access, and direct module updates right from your Homescreen.</p>
-                </div>
-                <div class="glass-card">
-                    <h3 style="margin-top:0;">AIOG V4 (Ultra Edition) & V3</h3>
-                    <p class="card-desc">Aggressive OpenGL/Vulkan, Ultimate Anti-Thermal Throttling, Stable GPU/CPU Clock (Adreno & Mali/MTK), Network Ping Stabilizer.</p>
-                </div>
-                <div class="glass-card">
-                    <h3 style="margin-top:0;">Magic Random Pro V16 - V18</h3>
-                    <p class="card-desc">Featuring Pneuma-Ousia Dynamic Scaling, Musou RAM Sync, CPU+GPU Eternity Overclock, Dynamic VFS Cache Pressure, FATUI Overclock, FSTRIM.</p>
-                </div>
-                <div class="glass-card">
-                    <h3 style="margin-top:0;">Magic Random Pro V11 - V15.17</h3>
-                    <p class="card-desc">Covers ART Compiler Turbo, TCP Westwood optimization, advanced ZRAM LZ4 tuning, extreme touch responsiveness, and lightweight battery-friendly cores.</p>
-                </div>
             </div>
         </div>
 
+        <!-- DEVELOPER PROFILE -->
         <div id="menu-developer" class="tab-section">
             <header class="hero-header">
                 <h1 class="hero-title mask">ASNF Board</h1>
@@ -493,93 +523,71 @@
             </div>
         </div>
 
+        <!-- SE16 & S33 SYSTEM STATUS MERGE -->
         <div id="menu-about" class="tab-section">
             <header class="hero-header">
-                <h1 class="hero-title mask">System Control</h1>
+                <h1 class="hero-title mask">System Status</h1>
+                <p class="hero-subtitle">SE16 Diagnostics Center</p>
             </header>
 
-            <div class="glass-card" style="padding: 0; margin-bottom: 30px;">
-                <div style="display: flex; justify-content: space-between; padding: 22px 30px; border-bottom: 1px solid rgba(255,255,255,0.05);">
-                    <span style="font-size: 17px; font-weight: 600; color: #fff;">Company Structure</span>
-                    <span style="font-size: 17px; color: var(--accent); font-weight: 700;">ASNF Techno Lab</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; padding: 22px 30px; border-bottom: 1px solid rgba(255,255,255,0.05);">
-                    <span style="font-size: 17px; font-weight: 600; color: #fff;">System UI Version</span>
-                    <span style="font-size: 17px; color: var(--text-sub);">ShinkoUI 32</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; padding: 22px 30px; border-bottom: 1px solid rgba(255,255,255,0.05);">
-                    <span style="font-size: 17px; font-weight: 600; color: #fff;">Core Engine</span>
-                    <span style="font-size: 17px; color: var(--text-sub);">Shinko Engine 15</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; padding: 22px 30px;">
-                    <span style="font-size: 17px; font-weight: 600; color: #fff;">Theme Engine</span>
-                    <span style="font-size: 17px; color: var(--text-sub);">Liquid Crystal 5.0</span>
+            <div class="glass-card" style="padding: 0; margin-bottom: 25px;">
+                <div class="ios-list" style="margin: 0; border: none; border-radius: 0; background: transparent;">
+                    <div class="ios-item">
+                        <span class="ios-label">System UI Version</span>
+                        <span class="ios-value">ShinkoUI 33</span>
+                    </div>
+                    <div class="ios-item">
+                        <span class="ios-label">Engine Architecture</span>
+                        <span class="ios-value" style="color: #fff; font-weight: 700;">Shinko Engine 16.0</span>
+                    </div>
+                    <div class="ios-item">
+                        <span class="ios-label">Theme Render</span>
+                        <span class="ios-value">Liquid Crystal 6.0</span>
+                    </div>
+                    <div class="ios-item">
+                        <span class="ios-label">Developed By</span>
+                        <span class="ios-value">ASNF Techno Lab</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="glass-card">
-                <h3 style="margin-top: 0; color: #fff; font-size: 22px;">Shinko Engine 15 Capabilities</h3>
-                <p style="color: var(--text-sub); font-size: 16px; line-height: 1.8;">
-                    <strong>🚀 GPU Hardware Acceleration:</strong> Utilizing CSS translate3d and will-change logic to force GPU rendering for maximum 120Hz smoothness.<br><br>
-                    <strong>📱 Zero-Delay Automatic Scale System:</strong> Tablet/Smartphone/PC-Laptop, automatically adjusts the size according to screen size without any frame drop.<br><br>
-                    <strong>🛡️ Full Code Automatic Fix Bug and Error:</strong> Specialized interceptor script that silently heals background JS errors and notifies the Dynamic Island.<br><br>
-                    <strong>✨ Stabilize Animation for Smoothness:</strong> Powered by Apple's Spring Physics cubic-bezier(0.4, 1.2, 0.4, 1) and Lerp Parallax math.
-                </p>
+            <div class="glass-card" style="padding: 0;">
+                <div class="ios-list" style="margin: 0; border: none; border-radius: 0; background: transparent;">
+                    <div class="ios-item">
+                        <span class="ios-label">Hardware Acceleration</span>
+                        <span class="ios-value"><div class="status-dot"></div> Target (120Hz)</span>
+                    </div>
+                    <div class="ios-item">
+                        <span class="ios-label">Navigation Dock</span>
+                        <span class="ios-value">Perfect Geometry</span>
+                    </div>
+                    <div class="ios-item">
+                        <span class="ios-label">Background Render</span>
+                        <span class="ios-value">Lerp Mesh Parallax</span>
+                    </div>
+                    <div class="ios-item">
+                        <span class="ios-label">Shinko Cache 4.0</span>
+                        <span class="ios-value" id="cache-status" style="color: var(--accent); font-weight: bold;">Analyzing...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="live-check-panel">
+                <h3 style="margin-top: 0; color: #fff; font-size: 20px;">Web Official Live Check</h3>
+                <p style="color: var(--text-sub); font-size: 14px; margin-bottom: 10px;">Monitoring connection to ASNF Central Server:</p>
+                
+                <div class="live-url">https://asnf-techno-lab.github.io/Shinko-Engine</div>
+                
+                <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 20px;">
+                    <div class="ping-bars">
+                        <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                    </div>
+                    <span style="color: var(--success); font-weight: 800; font-size: 15px;">SERVER ONLINE</span>
+                </div>
             </div>
             
-            <div style="text-align: center; margin-top: 50px; font-size: 13px; color: rgba(255,255,255,0.3); letter-spacing: 1px; font-weight: 600;">
+            <div style="text-align: center; margin-top: 40px; font-size: 13px; color: rgba(255,255,255,0.3); font-weight: 600;">
                 &copy; 2026 ASNF Techno Lab. All Rights Reserved.
-            </div>
-        </div>
-
-        <div id="menu-gateway" class="tab-section">
-            <header class="hero-header">
-                <h1 class="hero-title mask" style="background-image: linear-gradient(to right, var(--gold-color), #fff);">ASNF Gateway</h1>
-                <p class="hero-subtitle">Beta Access Verification</p>
-            </header>
-
-            <div class="gateway-container">
-                <div class="gateway-guide">
-                    <h3>How to get Beta Release Token?</h3>
-                    <p>To gain access to experimental and classified ASNF Beta modules, please follow these steps to support the Developer and Company:</p>
-                    <ol>
-                        <li>Visit our official donation portal at <a href="https://sociabuzz.com/nabilirzap" target="_blank">sociabuzz.com/nabilirzap</a>.</li>
-                        <li>Make a donation/support contribution.</li>
-                        <li>Take a screenshot of your successful transaction.</li>
-                        <li>Send the proof via Direct Message to the Developer's Instagram: <strong>@n4bilirzap.zw</strong>.</li>
-                        <li>You will receive a unique, limited-time Access Token to unlock the Beta Hub.</li>
-                    </ol>
-                </div>
-
-                <div class="gateway-input-box">
-                    <input type="text" id="tokenInput" class="gateway-input" placeholder="ENTER ACCESS TOKEN" autocomplete="off">
-                    <button class="btn-glass btn-primary" style="margin-top: 20px; padding: 20px; border-radius: 40px; font-size: 16px;" onclick="validateToken()">AUTHORIZE UNLOCK</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="menu-beta" class="tab-section">
-            <header class="hero-header">
-                <h1 class="hero-title mask" style="background-image: linear-gradient(to right, var(--snezhnaya-ice), var(--apex-red));">In The Experiment</h1>
-                <p class="hero-subtitle">Authorized ASNF Beta Access Only</p>
-            </header>
-
-            <div class="shinko-grid">
-                
-                <div class="glass-card" style="border-color: rgba(143, 211, 254, 0.4); box-shadow: 0 15px 50px rgba(143, 211, 254, 0.15);">
-                    <div class="badge b-cryo">Beta Release</div>
-                    <h3 class="card-title text-cryo">Magic Random Pro V20</h3>
-                    <p class="card-desc">The Ultimate Cryo Core. Snezhnaya Edition (OnePlus 12R Spoof). Powered by Permafrost Logic 13.0, Delusion Unleashed, Absolute Zero Rest, & Blizzard-Cleanse 80x Vacuum.</p>
-                    <a href="https://github.com/mnabilirzaprawira-ops/Module-File-Hare/releases/download/Module/Magic_Random-Pro-V20_Sneznaya.zip" class="btn-glass btn-primary" style="background: var(--snezhnaya-ice); color: #000;" onclick="triggerDownload('MRP V20 Snezhnaya')">DOWNLOAD V20 SNEZHNAYA</a>
-                </div>
-
-                <div class="glass-card" style="border-color: rgba(255, 55, 95, 0.4); box-shadow: 0 15px 50px rgba(255, 55, 95, 0.15);">
-                    <div class="badge b-apex">Trial Release</div>
-                    <h3 class="card-title" style="color: var(--apex-red);">V6.0 Apex Edition</h3>
-                    <p class="card-desc">Exclusive trial release of the Apex architecture. Extreme hardware tuning and bleeding-edge performance injection.</p>
-                    <a href="https://github.com/mnabilirzaprawira-ops/Module-File-Hare/releases/download/Module/V6.0.-.APEX.EDITION.zip" class="btn-glass btn-primary" style="background: var(--apex-red);" onclick="triggerDownload('V6.0 Apex Edition')">DOWNLOAD V6.0 APEX</a>
-                </div>
-
             </div>
         </div>
 
@@ -587,18 +595,18 @@
 
     <script>
         // ==========================================
-        // SHINKO ENGINE 15 - LOGIC & BETA PROTOCOL
+        // SHINKO ENGINE 16 & S33 LOGIC
         // ==========================================
 
         // 1. ASNF HAPTIC ENGINE
         function triggerHaptic(duration = 40) {
             if (navigator.vibrate) { navigator.vibrate(duration); }
         }
-        document.querySelectorAll('.btn-glass, .dock-item').forEach(el => {
+        document.querySelectorAll('.btn-glass, .dock-segment, .menu-link').forEach(el => {
             el.addEventListener('click', () => triggerHaptic(50));
         });
 
-        // 2. UPGRADED DYNAMIC ISLAND NOTIFY
+        // 2. DYNAMIC ISLAND NOTIFY
         const island = document.getElementById('dynamic-island');
         const islandMsg = document.getElementById('island-msg');
         let islandTimeout;
@@ -623,34 +631,67 @@
             showNotify(`Downloading ${itemName}...`);
         }
 
-        // 3. AUTO FIX INTERCEPTOR
+        // 3. AUTO FIX INTERCEPTOR (SE16)
         window.onerror = function(message) {
-            console.warn("[ASNF Shinko Engine 15] Auto-Fix Intercepted:", message);
-            showNotify("System Auto-Fixed a Background Error", true);
+            console.warn("[Shinko Engine 16 Core] Auto-Fix Intercepted:", message);
             return true; 
         };
 
-        // 4. SMART TAB NAVIGATION
-        function switchMenu(menuId, element) {
+        // 4. TOP DOCK HAMBURGER MENU LOGIC
+        const menuOverlay = document.getElementById('menuOverlay');
+        const hl1 = document.getElementById('hl1');
+        const hl2 = document.getElementById('hl2');
+        const hl3 = document.getElementById('hl3');
+        let menuOpen = false;
+
+        function toggleMenu() {
+            menuOpen = !menuOpen;
+            if(menuOpen) {
+                menuOverlay.classList.add('active');
+                hl1.style.transform = 'rotate(45deg) translate(5px, 6px)';
+                hl2.style.opacity = '0';
+                hl3.style.transform = 'rotate(-45deg) translate(6px, -7px)';
+            } else {
+                menuOverlay.classList.remove('active');
+                hl1.style.transform = 'none';
+                hl2.style.opacity = '1';
+                hl3.style.transform = 'none';
+            }
+        }
+
+        // 5. SMART TAB NAVIGATION
+        function switchMenu(menuId, title) {
+            if(menuOpen) toggleMenu();
+
+            const dockTitle = document.getElementById('dockTitle');
+            dockTitle.style.opacity = '0';
+            setTimeout(() => {
+                dockTitle.innerText = title;
+                dockTitle.style.opacity = '1';
+            }, 250);
+
             document.querySelectorAll('.tab-section').forEach(tab => {
                 tab.classList.remove('active');
                 setTimeout(() => { if(!tab.classList.contains('active')) tab.style.display = 'none'; }, 500); 
             });
-            document.querySelectorAll('.dock-item').forEach(item => { item.classList.remove('active'); });
+
+            document.querySelectorAll('.menu-link').forEach(link => { link.classList.remove('active'); });
+            const clickedLink = Array.from(document.querySelectorAll('.menu-link')).find(el => el.innerText === title || el.innerText.includes(title));
+            if(clickedLink) clickedLink.classList.add('active');
 
             const targetTab = document.getElementById('menu-' + menuId);
             targetTab.style.display = 'block';
-            void targetTab.offsetWidth; // Force Reflow
+            void targetTab.offsetWidth; 
             targetTab.classList.add('active');
             
-            element.classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // 5. LERP PARALLAX (GPU ACCELERATED)
+        // 6. ADVANCED LERP PARALLAX
         const meshBg = document.getElementById('meshBg');
-        let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
-        const lerpFactor = 0.05;
+        let targetX = 0, targetY = 0;
+        let currentX = 0, currentY = 0;
+        const lerpFactor = 0.05; 
 
         function updateParallax() {
             if(window.innerWidth > 800) {
@@ -660,6 +701,7 @@
             }
             requestAnimationFrame(updateParallax);
         }
+
         window.addEventListener('mousemove', (e) => {
             targetX = (e.clientX / window.innerWidth - 0.5) * 30; 
             targetY = (e.clientY / window.innerHeight - 0.5) * 30;
@@ -667,70 +709,48 @@
         window.addEventListener('mouseleave', () => { targetX = 0; targetY = 0; });
         requestAnimationFrame(updateParallax);
 
-        // ==========================================
-        // SHINKOUI 32 EXCLUSIVE: ASNF GATEWAY & BETA PROTOCOL
-        // ==========================================
-        
-        const validTokens = ["SNEZNAYA-V20-BETA", "APEX-V6-TRIAL"];
-        const adminToken = "ASNF-NEXUS-ADMIN";
-        const inputField = document.getElementById('tokenInput');
+        // 7. DYNAMIC FPS OPTIMIZER (SHINKO CACHE 4.0)
+        let lastTime = performance.now();
+        let frameCount = 0;
+        const cacheStatusText = document.getElementById('cache-status');
 
-        // Check LocalStorage on Boot
-        let isBetaUnlocked = localStorage.getItem('asnf_shinko32_unlocked') === 'true';
-
-        function checkBetaStatus() {
-            if(isBetaUnlocked) {
-                document.body.classList.add('is-unlocked');
-                // Ensure if gateway was active, switch to beta automatically
-                if(document.getElementById('menu-gateway').classList.contains('active')) {
-                    switchMenu('beta', document.getElementById('dock-beta'));
+        function fpsOptimizerLoop() {
+            const now = performance.now();
+            frameCount++;
+            if (now - lastTime >= 1000) {
+                if (frameCount < 40) { 
+                    document.documentElement.style.setProperty('--glass-blur-value', '80px');
+                    meshBg.style.willChange = 'auto'; 
+                    if(cacheStatusText) {
+                        cacheStatusText.innerText = "Adaptive Mode (Saving GPU)";
+                        cacheStatusText.style.color = "#ffd60a";
+                    }
+                } else { 
+                    document.documentElement.style.setProperty('--glass-blur-value', '160px');
+                    meshBg.style.willChange = 'transform, background-position';
+                    if(cacheStatusText) {
+                        cacheStatusText.innerText = "Ultra Mode (Active)";
+                        cacheStatusText.style.color = "#32d74b";
+                    }
                 }
+                frameCount = 0; lastTime = now;
             }
+            requestAnimationFrame(fpsOptimizerLoop);
         }
+        requestAnimationFrame(fpsOptimizerLoop);
 
-        function validateToken() {
-            triggerHaptic(60);
-            const token = inputField.value.trim().toUpperCase();
-            
-            if(token === adminToken || validTokens.includes(token)) {
-                localStorage.setItem('asnf_shinko32_unlocked', 'true');
-                showNotify("Access Granted! Rebooting System...", false, true);
-                
-                // Cinematic Reboot Sequence
-                setTimeout(() => {
-                    const loader = document.getElementById('loading-screen');
-                    loader.style.visibility = 'visible';
-                    loader.style.display = 'flex';
-                    loader.style.opacity = '1';
-                    
-                    setTimeout(() => { window.location.reload(); }, 1500);
-                }, 1000);
-            } else {
-                showNotify("Invalid or Expired Token", true);
-                inputField.value = '';
-                inputField.style.borderColor = "#ff453a";
-                setTimeout(() => { inputField.style.borderColor = "rgba(255,255,255,0.1)"; }, 1000);
-            }
-        }
-
-        // STARTUP LOGIC (BOOT)
+        // 8. BOOT SEQUENCE
         window.addEventListener('load', () => {
-            checkBetaStatus(); 
             const loader = document.getElementById('loading-screen');
             setTimeout(() => {
                 loader.style.opacity = '0';
                 setTimeout(() => {
                     loader.style.visibility = 'hidden';
                     loader.style.display = 'none';
-                    if(isBetaUnlocked) {
-                        showNotify("ASNF Beta Lab Online");
-                    } else {
-                        showNotify("ShinkoUI 32 System Online");
-                    }
+                    showNotify("ShinkoUI 33 Apex Online");
                 }, 1200); 
             }, 3000); 
         });
-
     </script>
 </body>
 </html>
